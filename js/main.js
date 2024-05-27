@@ -27,10 +27,15 @@ while (lPideProducto) {
     nItem ++
 }
 
-if (nItem==1)
+if (nItem==1)  {
     console.log("Se compró "+ nItem+" item, el total a pagar es: "+nTotal)
-else
+    alert("Se compró "+ nItem+" item, el total a pagar es: "+nTotal)
+}
+else {
     console.log("Se compraron "+ nItem+" items, el total a pagar es: "+nTotal)
+    alert("Se compraron "+ nItem+" items, el total a pagar es: "+nTotal)
+}
+    
 
 
 
