@@ -1,3 +1,46 @@
+
+class Usuario {
+    constructor(nombre, pass, id) {
+        this.nombre = nombre
+        this.pass = pass
+        this.id = id
+    }
+}
+
+let usuarios_activos = [
+    new Usuario('Giovanni','clave123',1 ),
+    new Usuario('Pepe','pepe123',2),
+    new Usuario('admin','super1234',3)
+]
+
+//localStorage.setItem('usuarios', JSON.stringify(usuarios_activos))
+
+
+let formulario = document.querySelector('form')
+
+formulario.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    let nombre = formulario[0].value
+    let pass = formulario[1].value
+    
+    let usuario_encontrado = usuarios_activos.find((usuario)=> usuario.nombre==nombre && usuario.pass==pass)
+    if (usuario_encontrado) {
+        alert("Bienvenido "+nombre)
+
+        //guardamos datos del usuarios logeado
+        localStorage.setItem('logeado', JSON.stringify(usuario_encontrado))
+
+        document.location.href ="../pages/proforma.html"
+    }
+    else
+        alert("Usuario y/o contraseña incorrectos")
+
+})
+
+
+
+/*
 let pideArticulo=true
 let respuesta
 
@@ -57,11 +100,11 @@ const validaOpcion = (mensaje) => {
     }
     return respuesta
 }
+*/
 
 
-
-//***** INICIO DEL PROCESO DE COMPRAS */
-
+/***** INICIO DEL PROCESO DE COMPRAS */
+/*
 while (pideArticulo) {
 
     respuesta=validaOpcion("CARRO DE COMPRAS: \n [1]Agregar [2]Modificar [3]Eliminar [4]Listar \n [5]Consultar [6]Ordenar por total [7]Terminar \n==> Ingrese su opción:")
@@ -91,10 +134,10 @@ while (pideArticulo) {
 }
 
 listarArticulos();    
+*/
+/********************************************************************************** */
 
-//********************************************************************************** */
-
-
+/*
 function agregarArticulo() {
     let nombreProducto 
     let cantidadArticulo
@@ -275,3 +318,4 @@ function ordenarTotal() {
     return 0             
     
 }
+*/

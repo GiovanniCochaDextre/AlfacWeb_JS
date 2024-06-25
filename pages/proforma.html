@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../img/LeoJuda.png">
+    <title>Alfac | Modulo de pedidos de Alfac</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <img src="../img/cliente.png" alt="Logo de Cliente">
+        </div>
+
+        <div class="usuario">
+            <h3>Giovanni Cocha</h3>
+            <a href="../pages/logout.html"><input name="logout" type="submit" value="Logout"></a>
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="cabecera">
+            <div>
+                <img src="../img/banner.jpg" alt="banner">
+            </div>
+
+            <h1 class="proformas-h1">Proformas</h1>
+
+            <div class="cabecera-buscardesde">
+                <label for="fbuscadesde">Buscar desde:</label>
+                <input type="date" id="fbuscadesde" name="fbuscadesde">
+            </div>
+
+            <div class="cabecera-filtro">
+                <div>
+                    <label for="filtro">Filtro:</label>
+                    <select name="buscapor" id="">
+                        <option value="numprof" name="buscapor"># Proforma</option>
+                        <option value="desclie" name="buscapor">Nombre del cliente</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="datoabuscar" for="datobuscar">Dato a buscar:</label>
+                    <input type="text" id="fbuscadato" name="fbuscadato">
+                    <a href=""><input class="buscar" name="logout" type="submit" value="Buscar"></a>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="detalle">
+            <div>
+                <h2>Proformas Existentes</h2>
+                <table id="tablaProformas">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;"># Proforma</th>
+                            <th style="width: 10%;">Fecha</th>
+                            <th style="width: 35%;">Nombre del Cliente</th>
+                            <th style="width: 10%;">Total</th>
+                            <th style="width: 30%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas de pedidos se añadirán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Formulario para añadir/editar pedidos -->
+            <div>
+                <h2>Gestionar Proforma</h2>
+                <form class="formProforma" id="formProforma">
+                    <div>
+                        <input type="hidden" id="proformaId" />
+                        <label for="nombreCliente">Nombre del Cliente:</label>
+                        <input type="text" id="nombreCliente" class="cabeProformaInputCliente" required />
+                        <label for="fecha">Fecha:</label>
+                        <input class="cabeProformaInputFecEmision" type="date" id="fecha" required />
+                    </div>
+
+                    <div class="formArticulo">
+                        <input type="hidden" id="articuloId" />
+                        <label for="articulo">Artículo:</label>
+                        <input type="text" id="articulo" class="detProformaInputArticulo" required />
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" id="cantidad" class="detProformaInputCantidad" required />
+                        <label for="precio">Precio:</label>
+                        <input type="number" step="0.01" id="precio" class="detProformaInputPrecio" required />
+                        <input type="submit" class="agregarArticulo" value="Agregar artículo">
+                    </div>
+                </form>
+
+                <table id="tablaDetalleProforma">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">Artículo</th>
+                            <th style="width: 10%;">Cantidad</th>
+                            <th style="width: 10%;">Precio</th>
+                            <th style="width: 10%;">Total</th>
+                            <th style="width: 35%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas de pedidos se añadirán aquí dinámicamente -->
+                    </tbody>
+                </table>
+
+                <button type="button" onclick="agregarModificarProforma()">Guardar Proforma</button>
+
+            </div>
+        </section>
+
+
+        <a href="#consultaProforma"></a>
+        <section id="consultaProforma" class="consulta">
+            <h2>Consultar Proforma</h2>
+            <div class="consultaCabecera">
+                <div class="consultaNombCliente">
+                    <label>Nombre del Cliente:</label>
+                    <label></label>
+                </div>
+                <div class="consultaFecha">
+                    <label>Fecha:</label>
+                    <label></label>
+                </div>
+                <div class="consultaTotal">
+                    <label>Total:</label>
+                    <label></label>
+                </div>
+            </div>
+
+            <table id="tablaConsultaProforma">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Artículo</th>
+                        <th style="width: 10%;">Cantidad</th>
+                        <th style="width: 10%;">Precio</th>
+                        <th style="width: 10%;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas de pedidos se añadirán aquí dinámicamente -->
+                </tbody>
+            </table>
+
+
+            <label for="ordenar">Ordenar por:</label>
+            <select name="ordenarPor" id="">
+                <option value="articulo" name="buscapor">Artículo</option>
+                <option value="cantidad" name="buscapor">Cantidad</option>
+                <option value="precio" name="buscapor">Precio</option>
+                <option value="total" name="buscapor">Total</option>
+            </select>
+
+            <select name="ordenarAscDesc" id="">
+                <option value="ascendente" name="ordenarAD">Ascendente</option>
+                <option value="descendente" name="ordenarAD">Descendente</option>
+            </select>
+
+        </section>
+
+
+
+        <section class="accion">
+            <div>
+                <ul>
+                    <li><a href="" class="link2">Agregar</a></li>
+                    <li><a href="" class="link2">Editar</a></li>
+                    <li><a href="" class="link2">Anular</a></li>
+                    <li><a href="" class="link2">Recuperar</a></li>
+                    <li><a href="" class="link2">Transferir</a></li>
+                    <li><a href="" class="link2">Copiar</a></li>
+                    <li><a href="" class="link2">Imprimir</a></li>
+                    <li><a href="" class="link2">Exportar</a></li>
+                    <li><a href="" class="link2">Consultar Transferencias</a></li>
+                    <li><a href="" class="link2">Libera Múltiplo</a></li>
+                    <li><a href="" class="link2">Baja Pend. No Facturado</a></li>
+                </ul>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer id="contacto" class="grid-container">
+        <div class="footer-image">
+            <img src="../img/LeoJuda.png" alt="logo Qwerty">
+            <h2>Alfac</h2>
+        </div>
+        <div class="footer-p">
+            <p>Para consultas, escribir al correo codex27@hotmail.com</p>
+        </div>
+    </footer>
+
+
+    <script src="../js/proforma.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -3,26 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primera Pre-Entrega JS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" type="image/png" href="./img/LeoJuda.png">
+    <title>Alfac | Modulo de pedidos de Alfac</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 
 <body>
 
-    <header>
-        <h1>Segunda entrega</h1>    
-    </header>
     
-    <main>
-        <div>
-            <h3>1) La programación JS permite tomar un pedido de venta y valorizalo</h3>
-            <h3>2) Se pueden ingresar N artículos, por cada uno pedirá descripción del producto, cantidad y precio</h3>
-            <h3>3) Los artículos se guardan en un array de objetos</h3>
-            <h3>3) La página preguntará si desea Terminar, Agregar un nuevo artículo, Modificar cantidad o Eliminar</h3>
-            <h3>4) Se mostrará el detalle final del pedido y el total a pagar</h3>
+    <section class="flex-container">
+        <div class="animate__animated animate__bounce">
+            <img src="./img/LeoJuda.png" alt="Logo de Qwerty">
         </div>
-    </main>
+
+        <div class="login-titulo animate__animated animate__backInLeft">
+            <h1>Ingreso a Alfac</h1>
+        </div>
+
+        <form action="">
+            <div class="login-usuario">
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" name="usuario">
+            </div>
+    
+            <div class="login-contrasena">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password">
+            </div>
+    
+            <div class="login-boton">
+                <a href="./pages/proformas.html"><input name="login" type="submit" value="Login"></a>
+            </div>
+        </form>
+
+    </section>
     
     <script src="./js/main.js"></script>
 </body>
