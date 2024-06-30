@@ -7,6 +7,7 @@ class Usuario {
     }
 }
 
+//usuarios que tienen acceso al sistema
 let usuarios_activos = [
     new Usuario('Giovanni','clave123',1 ),
     new Usuario('Pepe','pepe123',2),
@@ -15,7 +16,7 @@ let usuarios_activos = [
 
 //localStorage.setItem('usuarios', JSON.stringify(usuarios_activos))
 
-
+localStorage.clear()
 let formulario = document.querySelector('form')
 
 formulario.addEventListener('submit', (e) => {

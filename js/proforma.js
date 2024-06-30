@@ -8,6 +8,10 @@ let articuloActualId = null;
 let formulario = document.querySelector('form')
 let consultaProforma = document.getElementsByClassName('consulta')
 
+//mostrar nombre del usuario logeado 
+let usuario = JSON.parse(localStorage.getItem('logeado'))
+
+document.getElementsByClassName('usuario')[0].childNodes[1].textContent = usuario.nombre
 
 // class DetProforma {
 //     constructor(articulo, cantidad, precio) {
@@ -19,17 +23,15 @@ let consultaProforma = document.getElementsByClassName('consulta')
 // }
 
 
+//captura fecha hoy en formato que js permite mostrar
 let fechaHoy = new Date().toISOString().substring(0, 10);
 formulario[2].value = fechaHoy
 
+
+//evento submit para cuando se de clic en formulario de llenado de proforma
 formulario.addEventListener('submit', function (e) {
     e.preventDefault()
 
-    // console.log(this.className);
-    // console.log(e.currentTarget);
-    // console.log(e.currentTarget === this);
-
-    //alert("ingreso al addEventListener")
 
     let articulo = formulario[4].value;
     let cantidad = formulario[5].value;
@@ -37,8 +39,6 @@ formulario.addEventListener('submit', function (e) {
 
 
     if (cantidad <= 0) {
-        //alert("Ingrese cantidad válida")
-
         Swal.fire("Ingrese cantidad válida");        
         return
     }
@@ -51,8 +51,8 @@ formulario.addEventListener('submit', function (e) {
 
 
 
-    //let usuario_encontrado = usuarios_activos.find((usuario)=> usuario.nombre==nombre && usuario.pass==pass)
-
+    //si articulo ya existe se entiende que se desea modificar cantidades y/o precio
+    //si no existe agrega nuevo articulo al array
     let articulo_encontrado = aDetalleProforma.find((dp) => dp.articulo === articulo);
 
     if (articulo_encontrado) {
@@ -77,6 +77,7 @@ formulario.addEventListener('submit', function (e) {
 
     }
 
+    //unavez agregado limpia el formulario y actualiza tabla del detalle de la proforma
     limpiarFormularioArticulo();
     mostrarArticulos();
 })
@@ -212,7 +213,9 @@ function eliminarProforma(id) {
     mostrarProformas();
 }
 
-// Función para editar un proforma
+// Función para editar un proforma, en formulario de artículos
+//muestra el detalle de la proforma con los botones de editar/elimnar articulos
+//en el formulario de articulos se puede usar para agregar productos nuevos a la proforma
 function editarProforma(id) {
     const proforma = proformas.find(p => p.id === id);
     if (proforma) {
@@ -243,7 +246,9 @@ function editarProforma(id) {
     }
 }
 
-// Función para ver detalle de un proforma
+// Función para ver detalle de una proforma, muestra el detalle en la seccion de 
+//consulta. En esta seccion el detalle se puede ordenar por nombre del articulo
+//cantidad, precio, total, de forma ascendente o descendente.
 function verDetalle(id) {
 
 
@@ -317,11 +322,8 @@ function limpiarFormulario() {
     proformaActualId = null;
 }
 
-// formulario.addEventListener('select', function (e) {
 
-//     console.log(this.className)
-// })
-
+//ordenear detalle de la proforma consultada
 let selectOrdenarPor = document.getElementsByName('ordenarPor')
 let selectOrdenarAscDesc = document.getElementsByName('ordenarAscDesc')
 
