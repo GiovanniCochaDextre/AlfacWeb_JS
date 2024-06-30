@@ -98,7 +98,12 @@
 
         <section class="detalle">
             <div>
-                <h2>Proformas Existentes</h2>
+
+                <div class="proformasExistentes">
+                    <h2>Proformas Existentes</h2>
+                    <a href="#formProforma">Gestión de proformas</a>
+                </div>
+
                 <table id="tablaProformas">
                     <thead>
                         <tr>
@@ -128,13 +133,15 @@
                     </div>
 
                     <div class="formArticulo">
-                        <input type="hidden" id="articuloId" />
-                        <label for="articulo">Artículo:</label>
-                        <input type="text" id="articulo" class="detProformaInputArticulo" required />
-                        <label for="cantidad">Cantidad:</label>
-                        <input type="number" id="cantidad" class="detProformaInputCantidad" required />
-                        <label for="precio">Precio:</label>
-                        <input type="number" step="0.01" id="precio" class="detProformaInputPrecio" required />
+                        <div>
+                            <input type="hidden" id="articuloId" />
+                            <label for="articulo">Artículo:</label>
+                            <input type="text" id="articulo" class="detProformaInputArticulo" required />
+                            <label for="cantidad">Cantidad:</label>
+                            <input type="number" id="cantidad" class="detProformaInputCantidad" required />
+                            <label for="precio">Precio:</label>
+                            <input type="number" step="0.01" id="precio" class="detProformaInputPrecio" required />
+                        </div>
                         <input type="submit" class="agregarArticulo" value="Agregar artículo">
                     </div>
                 </form>
@@ -195,6 +202,7 @@
 
             <label for="ordenar">Ordenar por:</label>
             <select name="ordenarPor" id="">
+                <option value="" name="buscapor">Seleccione</option>
                 <option value="articulo" name="buscapor">Artículo</option>
                 <option value="cantidad" name="buscapor">Cantidad</option>
                 <option value="precio" name="buscapor">Precio</option>
@@ -202,6 +210,7 @@
             </select>
 
             <select name="ordenarAscDesc" id="">
+                <option value="" name="ordenarAD">Seleccione</option>
                 <option value="ascendente" name="ordenarAD">Ascendente</option>
                 <option value="descendente" name="ordenarAD">Descendente</option>
             </select>
@@ -243,10 +252,11 @@
     </footer>
 
 
-    <script src="../js/proforma.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+    <script src="../js/proforma.js"></script>
 </body>
 
 </html>

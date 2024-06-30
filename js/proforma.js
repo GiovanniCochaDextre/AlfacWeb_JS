@@ -2,6 +2,7 @@ let proformas = []; // Array para almacenar los proformas
 let proformaActualId = null; // ID del proforma que se está editando
 
 let aDetalleProforma = [];
+let aConsultaDetalleProforma = [];
 let articuloActualId = null;
 
 let formulario = document.querySelector('form')
@@ -16,6 +17,7 @@ let consultaProforma = document.getElementsByClassName('consulta')
 //         this.total = cantidad * precio
 //     }
 // }
+
 
 let fechaHoy = new Date().toISOString().substring(0, 10);
 formulario[2].value = fechaHoy
@@ -35,12 +37,14 @@ formulario.addEventListener('submit', function (e) {
 
 
     if (cantidad <= 0) {
-        alert("Ingrese cantidad válida")
+        //alert("Ingrese cantidad válida")
+
+        Swal.fire("Ingrese cantidad válida");        
         return
     }
 
     if (precio < 0) {   //que permita CERO en caso se trate de una bonificación/regalo
-        alert("Ingrese cantidad válida")
+        Swal.fire("Ingrese precio válido");  
         return
     }
 
@@ -56,7 +60,8 @@ formulario.addEventListener('submit', function (e) {
         articulo_encontrado.precio = precio
         articulo_encontrado.total = cantidad * precio
 
-        alert("Se actualizó su cantidad y/o precio")
+        //alert("Se actualizó su cantidad y/o precio")
+        Swal.fire("Se actualizó cantidad y/o precio");  
 
     }
     else {
@@ -130,12 +135,14 @@ function agregarModificarProforma() {
     const total = cantidad * precio;
 
     if (nombreCiente = "") {
-        alert("Debe ingresar nombre de cliente")
+        //alert("Debe ingresar nombre de cliente")
+        Swal.fire("Debe ingresar nombre de cliente");  
         return
     }
 
     if (aDetalleProforma.length == 0) {
-        alert("Debe ingresar productos")
+        //alert("Debe ingresar productos")
+        Swal.fire("Debe ingresar productos");  
         return
     }
 
@@ -256,15 +263,13 @@ function verDetalle(id) {
         //       `Total: ${proforma.total.toFixed(2)}\n\n` +
         //       mensaje);
 
-
-
         consultaProforma[0].childNodes[3].childNodes[1].childNodes[3].textContent = proforma.nombreCliente
         consultaProforma[0].childNodes[3].childNodes[3].childNodes[3].textContent = proforma.fecha
         consultaProforma[0].childNodes[3].childNodes[5].childNodes[3].textContent = proforma.total
 
         //proformaActualId = proforma.id;
 
-        aDetalleProforma = []
+        aConsultaDetalleProforma = []
 
         proforma.articulos.forEach((articulo) => {
 
@@ -276,12 +281,12 @@ function verDetalle(id) {
                 total: articulo.total
 
             };
-            aDetalleProforma.push(nuevoArticulo2)
+            aConsultaDetalleProforma.push(nuevoArticulo2)
         })
 
         consultarArticulos();
 
-        aDetalleProforma = []
+        //aDetalleProforma = []
 
         window.location = "#consultaProforma";
     }
@@ -291,7 +296,7 @@ function consultarArticulos() {
     const tbody = document.querySelector('#tablaConsultaProforma tbody');
     tbody.innerHTML = ''; // Limpiar la tabla
 
-    aDetalleProforma.forEach(detProforma => {
+    aConsultaDetalleProforma.forEach(detProforma => {
         let tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${detProforma.articulo}</td>
@@ -312,7 +317,162 @@ function limpiarFormulario() {
     proformaActualId = null;
 }
 
-formulario.addEventListener('select', function (e) {
+// formulario.addEventListener('select', function (e) {
 
-    console.log(this.className)
+//     console.log(this.className)
+// })
+
+let selectOrdenarPor = document.getElementsByName('ordenarPor')
+let selectOrdenarAscDesc = document.getElementsByName('ordenarAscDesc')
+
+selectOrdenarPor[0].addEventListener('change', () => {
+
+    if (selectOrdenarPor[0].value!="" && selectOrdenarAscDesc[0].value!="" && aConsultaDetalleProforma.length>0) {
+        if(selectOrdenarPor[0].value == "articulo" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por artículo ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (artic1.articulo < artic2.articulo) return -1
+                if (artic1.articulo > artic2.articulo) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "articulo" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por artículo descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (artic1.articulo > artic2.articulo) return -1
+                if (artic1.articulo < artic2.articulo) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "cantidad" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por cantidad ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.cantidad) < Number(artic2.cantidad)) return -1
+                if (Number(artic1.cantidad) > Number(artic2.cantidad)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "cantidad" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por cantidad descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.cantidad) > Number(artic2.cantidad)) return -1
+                if (Number(artic1.cantidad) < Number(artic2.cantidad)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "precio" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por precio ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.precio) < Number(artic2.precio)) return -1
+                if (Number(artic1.precio) > Number(artic2.precio)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "precio" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por precio descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.precio) > Number(artic2.precio)) return -1
+                if (Number(artic1.precio) < Number(artic2.precio)) return 1
+            })
+
+        }
+        else if(selectOrdenarPor[0].value == "total" && selectOrdenarAscDesc[0].value == "ascendente") {
+           //console.log('se seleccionó ordenar por total ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.total) < Number(artic2.total)) return -1
+                if (Number(artic1.total) > Number(artic2.total)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "total" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por total descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.total) > Number(artic2.total)) return -1
+                if (Number(artic1.total) < Number(artic2.total)) return 1
+            })
+        }
+
+        consultarArticulos()
+    }
 })
+
+
+selectOrdenarAscDesc[0].addEventListener('change', () => {
+
+    if (selectOrdenarPor[0].value!="" && selectOrdenarAscDesc[0].value!="" && aConsultaDetalleProforma.length>0)  {
+        if(selectOrdenarPor[0].value == "articulo" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por artículo ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (artic1.articulo < artic2.articulo) return -1
+                if (artic1.articulo > artic2.articulo) return 1
+            })
+
+        }
+        else if(selectOrdenarPor[0].value == "articulo" && selectOrdenarAscDesc[0].value == "descendente") {
+           // console.log('se seleccionó ordenar por artículo descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (artic1.articulo > artic2.articulo) return -1
+                if (artic1.articulo < artic2.articulo) return 1
+            })
+
+        }
+        else if(selectOrdenarPor[0].value == "cantidad" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por cantidad ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.cantidad) < Number(artic2.cantidad)) return -1
+                if (Number(artic1.cantidad) > Number(artic2.cantidad)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "cantidad" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por cantidad descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.cantidad) > Number(artic2.cantidad)) return -1
+                if (Number(artic1.cantidad) < Number(artic2.cantidad)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "precio" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por precio ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.precio) < Number(artic2.precio)) return -1
+                if (Number(artic1.precio) > Number(artic2.precio)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "precio" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por precio descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.precio) > Number(artic2.precio)) return -1
+                if (Number(artic1.precio) < Number(artic2.precio)) return 1
+            })
+
+        }
+        else if(selectOrdenarPor[0].value == "total" && selectOrdenarAscDesc[0].value == "ascendente") {
+            //console.log('se seleccionó ordenar por total ascedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.total) < Number(artic2.total)) return -1
+                if (Number(artic1.total) > Number(artic2.total)) return 1
+            })
+        }
+        else if(selectOrdenarPor[0].value == "total" && selectOrdenarAscDesc[0].value == "descendente") {
+            //console.log('se seleccionó ordenar por total descedente')
+
+            aConsultaDetalleProforma.sort((artic1, artic2) => {
+                if (Number(artic1.total) > Number(artic2.total)) return -1
+                if (Number(artic1.total) < Number(artic2.total)) return 1
+            })
+        }
+
+        consultarArticulos()
+
+    }
+})
+
+

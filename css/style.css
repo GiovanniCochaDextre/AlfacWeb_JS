@@ -229,6 +229,13 @@ main .detalle div {
   height: 400px;
 } */
 
+main .detalle div .proformasExistentes {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+}
+
 main .detalle div table thead tr  {
   background-color: #C63D2F;
 }
@@ -415,6 +422,40 @@ main .accion div ul li .link2 {
 .grid-container .footer-p p {
   color: white;
 }
+
+
+@media screen and (max-width: 996px) {
+  main .detalle div .formProforma .formArticulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  main .detalle div .formProforma .formArticulo .agregarArticulo {
+    margin-top: 10px;
+    width: 150px;
+  }
+
+  main .detalle div .formProforma .formArticulo input {
+    margin-bottom: 5px;  
+    margin-left: 0px;
+  }
+
+   main .detalle div .formProforma .formArticulo label {
+      margin-bottom: 5px;  
+  }
+
+  @media screen and (max-width: 803px) {
+    main .cabecera .cabecera-filtro {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+    }
+    main .cabecera .cabecera-filtro div .datoabuscar {
+      margin-left: 0px;
+    }
+  }
 
 
 

@@ -26,15 +26,28 @@ formulario.addEventListener('submit', (e) => {
     
     let usuario_encontrado = usuarios_activos.find((usuario)=> usuario.nombre==nombre && usuario.pass==pass)
     if (usuario_encontrado) {
-        alert("Bienvenido "+nombre)
+        //alert("Bienvenido "+nombre)
 
         //guardamos datos del usuarios logeado
         localStorage.setItem('logeado', JSON.stringify(usuario_encontrado))
 
-        document.location.href ="../pages/proforma.html"
+        Swal.fire({
+            title: "Login de Alfac",
+            text: "Bienvenido "+nombre,
+            icon: "info"
+          }).then(()=>{
+            window.location.href ="../pages/proforma.html"
+          });
     }
-    else
-        alert("Usuario y/o contraseña incorrectos")
+    else{
+        Swal.fire({
+            title: "Login de Alfac",
+            text: "Usuario y/o contraseña no existen",
+            icon: "error"
+          });
+            //alert("Usuario y/o contraseña incorrectos")
+    
+    }
 
 })
 
