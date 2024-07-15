@@ -5,6 +5,7 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
 }
+/* login */
 .flex-container {
     height: 100vh;
     width: 100%;
@@ -111,7 +112,7 @@
 }
 
 
-
+/* proformas */
 header {
   max-width: 100%;
   height: 120px;
@@ -122,11 +123,13 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
+
 header div img {
   height: 100px;
   width: 200px;
 }
-header .usuario {
+header div .usuario {
   height: 37px;
   width: 450px;
   display: flex;
@@ -134,13 +137,28 @@ header .usuario {
   justify-content: end;
   align-items: end;
 }
-header .usuario h3 {
+header div .tipoCambio {
+  height: 37px;
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
+}
+header div .tipoCambio h3 {
+  width: 25vh;
+  text-align: right;
+  width: auto;
+  font-size: 17px;
+  margin-right: 20px;
+}
+header div .usuario h3 {
   width: 25vh;
   text-align: right;
   width: 320px;
   font-size: 17px;
 }
-header .usuario a input {
+header div .usuario a input {
   margin-left: 10px;
   margin-right: 10px;
   padding: 4px;
@@ -234,6 +252,7 @@ main .detalle div .proformasExistentes {
   flex-direction: row;
   justify-content:space-between;
   align-items: center;
+  margin-left: 0px;
 }
 
 main .detalle div table thead tr  {
