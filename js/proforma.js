@@ -20,7 +20,7 @@ let usuario = JSON.parse(localStorage.getItem('logeado')) //recuperar dato del u
 let tipoCambio = JSON.parse(localStorage.getItem('tipoCambio'))  //recuperar dato del tipo de cambio, uso informativo
 
 document.getElementsByClassName('usuario')[0].childNodes[1].textContent = usuario.nombre
-document.getElementsByClassName('tipoCambio')[0].childNodes[3].textContent = tipoCambio.Cotizacion[0].Venta
+document.getElementsByClassName('tipoCambio')[0].childNodes[3].textContent = tipoCambio[0].nombre +': '+ tipoCambio[0].venta
 
 
 //captura fecha hoy en formato que js permite mostrar

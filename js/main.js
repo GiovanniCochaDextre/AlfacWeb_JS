@@ -18,7 +18,7 @@ localStorage.clear()
 
 // puede que solo funcione desde Ip de Peru
 // guardamos tipo de cambio obtenido del api para usarlo en otras pantallas del sitio
-fetch('https://deperu.com/api/rest/cotizaciondolar.json')
+fetch('https://dolarapi.com/v1/dolares')
     .then((response)=>response.json())
     .then((datos)=>localStorage.setItem('tipoCambio', JSON.stringify(datos)))
     .catch((error)=>Swal.fire({
